@@ -1,0 +1,28 @@
+# action.yml
+name: 'Docker Run Action'
+description: 'Run a command in a new container'
+inputs:
+  image:
+    description: 'Image'
+    required: true
+  options:
+    description: 'Options'
+    required: false
+  run:
+    description: 'Run command in container'
+    required: false
+  shell:
+    description: 'Use a specific shell'
+    required: false
+    default: bash
+runs:
+  using: 'composite'
+  steps:
+    - run: '${{ github.action_path }}/scripts/main.sh'
+      shell: bash
+      env:
+        INPUT_IMAGE: ${{ inputs.image }}
+        INPUT_RUN: ${{ inputs.run }}
+        INPUT_SHELL: ${{ inputs.shell }}
+        INPUT_OPTIONS: ${{ inputs.options }}
+        INPUT_ENV: ${{ toJSON(env) }}
