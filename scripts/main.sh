@@ -12,4 +12,4 @@ fi
 
 DOCKER_CMD="docker run $INPUT_OPTIONS $NETWORK_OPTIONS $ENV_KEYS -v $GITHUB_WORKSPACE:/workspace -w /workspace --entrypoint=$INPUT_SHELL $INPUT_IMAGE -c"
 echo -e $COLOR_LB $DOCKER_CMD "$RUN" $COLOR_NONE
-exec $DOCKER_CMD "$RUN"
+exec $DOCKER_CMD "set -e; $RUN"
