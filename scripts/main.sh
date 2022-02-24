@@ -10,6 +10,10 @@ if [ ! -z $NETWORK ]; then
     NETWORK_OPTIONS="--network $NETWORK"
 fi
 
+if [[ "$INPUT_IMAGE" == *":latest"* ]]; then
+    INPUT_OPTIONS="$INPUT_OPTIONS --pull always"
+fi
+
 DOCKER_CMD="docker run $INPUT_OPTIONS $NETWORK_OPTIONS $ENV_KEYS -v $GITHUB_WORKSPACE:/workspace -w /workspace --entrypoint=$INPUT_SHELL $INPUT_IMAGE -c"
 echo -e $COLOR_LB $DOCKER_CMD "$RUN" $COLOR_NONE
 exec $DOCKER_CMD "set -xe; $RUN"
